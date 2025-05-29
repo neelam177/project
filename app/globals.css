@@ -151,6 +151,8 @@ body {
 
 
 .custom-radius {
-  border-radius: 51% 49% 32% 68% / 35% 39% 61% 65%;
+  border-radius:63% 39% 42% 60% / 37% 35% 63% 61%;;
   overflow: hidden;
 }
+
+/* 63% 39% 42% 60% / 37% 35% 63% 61%; */

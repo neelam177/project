@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { nunito } from "../app/fonts/nunito ";
 import { inter } from "../app/fonts/mens";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+
 const Home = () => {
   const router = useRouter();
   const [name, setName] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  
+  const [agreed, setAgreed] = useState(false);
+
   useEffect(() => {
     const savedName = localStorage.getItem("name");
     const savedPreview = localStorage.getItem("preview");
@@ -25,11 +26,15 @@ const Home = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+   if (!agreed) {
+  alert("Please check the checkbox to proceed.");
+  return;
+}
     localStorage.setItem("name", name);
     if (preview) localStorage.setItem("preview", preview);
+    alert("Form submitted successfully!");
     setImage(null);
-    setName("");  
-    alert("Data saved to localStorage!");
+    setName("");
     router.push("/thanu");
   };
 
@@ -201,7 +206,7 @@ const Home = () => {
               <span
                 className={`text-[22px] text-[#0E5A17] font-bold font ${nunito.className}`}
               >
-                {" "}
+               
                 Meril,{" "}
               </span>
               sustainability is not just a responsibility  - it’s integral to
@@ -264,7 +269,11 @@ const Home = () => {
 
         <div className="flex pt-[50px]">
           <div className="pr-[10px] pt-[4px]">
-            <input type="checkbox"></input>
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+            ></input>
           </div>
           <p
             className={`font ${nunito.className} font-normal text-[18px] tracking-[-0.4px] text-justify `}
@@ -326,17 +335,16 @@ const Home = () => {
                       Choose a file
                     </label>
                   </div>
-                 
                 </div>
 
                 <div className="gap-[10px] pt-[60px] pl-[205px] ">
                   <button
-                  type="submit"
-                    className={`w-[148px] h-[50px] bg-[#F5BF81] text-[23px] rounded-[8px] pt-[10px] pr-[50px] pb-[10px] pl-[50px] gap-[10px] text-white font-medium  font ${nunito.className}`}
+                    type="submit"
+                    disabled={!agreed}
+                    className={`w-[148px] h-[50px] bg-[#F5BF81] text-[23px] rounded-[8px] pt-[10px] pr-[50px] pb-[10px] pl-[50px] gap-[10px] text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed font ${nunito.className}`}
                   >
                     Next
                   </button>
-
                 </div>
               </form>
             </div>
@@ -347,9 +355,6 @@ const Home = () => {
           <Image src="/Group 13 (1).png" alt="" width={1000} height={1000} />
         </div>
       </div>
-
-             
-
     </>
   );
 };

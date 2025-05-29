@@ -16,13 +16,13 @@ const Page = () => {
     if (storedImage) setImage(storedImage);
   }, []);
 
-  const handleDownload = async () => {
+    const handleDownload = async () => {
     if (!certificateRef.current) return;
-    alert("In handle download");
-
+    
     const canvas = await html2canvas(certificateRef.current, {
       backgroundColor: "#FFF",
       useCORS: true,
+      scale: 2, // better image quality
     });
 
     const link = document.createElement("a");
@@ -110,7 +110,7 @@ const Page = () => {
 
       <div
         ref={certificateRef}
-        className="bg-[#FFF7F8]  w-[700px] h-auto" style={{
+        className="bg-[#FFF7F8]  w-[1200px] h-[950px]" style={{
           position:"absolute",
           left:"-9999px",
           top:0,
@@ -118,26 +118,26 @@ const Page = () => {
           zIndex:-1
         }}
       >
-        <div className="absolute right-0 pt-[50px] px-[55px] z-50">
+        <div className="absolute right-0 pt-[50px] px-[352px] z-50">
           <Image src="/Logo 1.png" alt="" width={157} height={143} />
         </div>
         <div className="relative ">
-          <Image src="/7782706 1.png" alt="" width={495} height={384} />
+          <Image src="/7782706 1.png" alt="" width={400} height={380} />
         </div>
         <div className="flex justify-center mt-[-330px] z-20 relative">
           <Image
             src="/Vector.png"
             alt=""
-            width={830}
+            width={630}
             height={61}
             className="relative"
           />
-          <div className="absolute top-[-20%] left-[49%] translate-x-[-50%] w-[700px] h-[700px] custom-radius overflow-hidden">
+          <div className="absolute top-[-10%] w-[546px] h-[469px] custom-radius z-30 overflow-hidden right-[26%]">
             {/* <Image src={image} alt="User" fill className="object-cover" /> */}
-            <img
+            <Image
               src={image}
               alt="User"
-              className="object-cover w-full h-full"
+              fill
             />
           </div>
 
@@ -146,7 +146,7 @@ const Page = () => {
             alt=""
             width={600}
             height={30}
-            className="absolute top-[380px]"
+            className="absolute top-[219px] z-0"
           />
         </div>
 
@@ -163,7 +163,7 @@ const Page = () => {
           </p>
         </div>
         <div className=" flex justify-end mt-[-609px]">
-          <Image src="/bg.png" alt="" width={485} height={384} />
+          <Image src="/bg.png" alt="" width={350} height={370} />
         </div>
       </div>
     </>
