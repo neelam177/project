@@ -1,11 +1,46 @@
+'use client';
 import Image from 'next/image'
-import React from 'react'
-import { annie } from '../app/fonts/fonts';
+// import { annie } from '../app/fonts/fonts';
 import { nunito } from '../app/fonts/nunito ';
 import { inter } from '../app/fonts/mens';
-
+import React, { useEffect, useState } from 'react'
 const home = () => {
 
+   const [name, setName] = useState("");
+  const [image, setImage] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
+
+ 
+  useEffect(() => {
+    const savedName = localStorage.getItem("name");
+    const savedPreview = localStorage.getItem("preview");
+
+    if (savedName) setName(savedName);
+    if (savedPreview) setPreview(savedPreview);
+  }, []);
+
+  // Handle form submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem("name", name);
+    alert("Data saved to localStorage!");
+  };
+
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageData = reader.result as string;
+        setPreview(imageData);
+        localStorage.setItem("preview", imageData);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 const data  = [
   {
     title: "Energy",
@@ -77,10 +112,10 @@ const data  = [
       "Use eco-friendly packaging and cutlery.",
     ],
     image: {
-      src: "/Group 6 (7).png",
+      src: "/Group 6 (9).png",
      width: 150,
       height: 150,
-      top: -44,
+      top: -55,
       right: -24,
     },
   },
@@ -109,7 +144,7 @@ const data  = [
     <>
       <div className='absolute right-0 '>
         <Image src="/7782706 2.png" alt=''  width={530} height={415}  />
-    </div>
+      </div>
     <div className='px-[100px] py-[20px] bg-[#FFF7F8]'> 
         <div className='flex justify-between relative '>
          <div className='top-[32px]'>
@@ -205,11 +240,12 @@ const data  = [
                 <h1 className={`text-[70px] text-[#D17710] p-[25px] font-normal font ${nunito.className}`}>
                     Share Your <span className="text-[#0E5A17] text-[70px]">Selfie</span>
                 </h1>
-                <form className='px-[30px] '>
+                <form className='px-[30px]' onSubmit={handleSubmit}>
                   <div className=' pt-[20px] flex flex-col gap-[10px]'>
                     <label className={`font ${nunito.className} font-medium text-[25px] text-[#D17710] `}>Your Name:</label>
                       <input type='text' 
                       placeholder='Type here...'
+                      onChange={(e) => setName(e.target.value)}
                       className='  rounded-[15px] border-[1px]  pt-[19px] pr-[30px] pb-[26px] pl-[30px] text-[#F5BF81]'>
                       </input>
                   </div>
@@ -225,10 +261,20 @@ const data  = [
                         <div className="back-side cover"></div>
                       </div>
                       <label className="custom-file-upload">
-                        <input className="title" type="file" />
+                        <input className="title" type="file"   accept="image/*" onChange={handleImageChange} />
                         Choose a file
                       </label>
                     </div>
+                     {preview && (
+                        <div className="mt-4 flex justify-center">
+                          <img
+                            src={preview}
+                            alt="Preview"
+                            className="w-[200px] h-auto rounded shadow-lg"
+                          />
+                        </div>
+                      )}
+
                   </div>
 
                   <div className='gap-[10px] pt-[60px] pl-[205px] '>
