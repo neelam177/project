@@ -25,7 +25,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* From Uiverse.io by 3bdel3ziz-T */ 
+/* From Uiverse.io by 3bdel3ziz-T */
 .container {
   --transition: 350ms;
   --folder-W: 120px;
@@ -35,7 +35,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   padding: 10px;
-  background: linear-gradient(135deg, #0E5A17, #D17710);
+  background: linear-gradient(135deg, #0e5a17, #d17710);
   border-radius: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   height: calc(var(--folder-H) * 1.7);
@@ -93,7 +93,7 @@ body {
 }
 
 .folder .tip {
-  background: linear-gradient(135deg, #D17710, #ff6f56);
+  background: linear-gradient(135deg, #d17710, #ff6f56);
   width: 80px;
   height: 20px;
   border-radius: 12px 12px 0 0;
@@ -147,4 +147,10 @@ body {
   100% {
     transform: translateY(0px);
   }
+}
+
+
+.custom-radius {
+  border-radius: 51% 49% 32% 68% / 35% 39% 61% 65%;
+  overflow: hidden;
 }
